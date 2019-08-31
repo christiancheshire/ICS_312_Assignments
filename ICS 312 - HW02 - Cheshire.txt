@@ -1,0 +1,64 @@
+Homework 02, Christian Cheshire
+ICS 312, Spring 2019
+Prof. Henri Casanova
+
+-----------------------------------------------------------------------------------------------------------------
+
+Exercise #1 [24pts]: Memory Layout
+
+Consider the following data segment:
+
+A	db	"d", 0, "af", 27o, 0
+B	dw	011FAh
+C	times 2 dw	-15
+D	db	043h, 0AAh
+E       dw  009h
+F	dw  -34o, 0
+
+Question #1 [18pts]
+Show the contents of the memory bytes starting at address A, in hex, on a machine that uses Little Endian. Indicate labels as well. 
+
+"d" 	= 64h
+ 0  	= 00h
+"a" 	= 61h
+"f" 	= 66h
+27o 	= 17h because 27o = 2 * (8^1) + 2 * (8^0) = 23 decimal, converting to hex: 23 = (1 * 16) + 7 = 17h
+ 0  	= 00h
+011FAh 	= 11FAh
+-15 	-> 15 = Fh, Flip: 0, Add one: 1, with leading zeroes FF FF FF F1
+043h 	= 43h
+0AAh 	= AAh
+009h 	= 09h
+-34o 	-> 3 * 8^1 + 4 * 8^0 = 24 + 4 = 28d -> 28 = 1 * 16 + 12 = 1Ch, Flip: F-1 = E and F-C = 3, Add one: E4h
+
+
+A        B     C        D              E        F
+64 00 61 66 17 00 FA 11 F1 FF FF FF 43 AA 09 00 00 E4
+
+
+Question #2 [6pts]:
+For each of the 6 labels, indicate which one would lead to a different in-memory byte order on a Big Endian machine?
+
+A, no change
+B, would lead to 11 FA
+C, would lead to FF FF FF F1
+D, no change
+E, would lead to 09 00
+F, would lead to E4 00
+
+--------------------------------------------------------------------------------------------------------------------
+
+Exercise #2 [14pts]: Memory and Registers
+Consider the following 15 bytes (in hex) declared by some .data segment on a Little Endian machine:
+
+L1          L2    L3                L4    L5
+03 00 00 00 6C 6C 6F 00 A1 B2 C3 13 00 FF FE
+Consider now the following program fragment:
+
+mov 	eax, [L2]		->	eax = 00 6F 6C 6C			RAM = 03 00 00 00 6C 6C 6F 00 A1 B2 C3 13 00 FF FE
+inc 	eax			->	eax = 00 6F 6C 6D			RAM = 03 00 00 00 6D 6C 6F 00 A1 B2 C3 13 00 FF FE
+mov 	[L3], eax		->	eax = 00 6F 6C 6C			RAM = 03 00 00 00 6D 6C 6C 6C 6F 00 C3 13 00 FF FE
+mov     ebx, [L1]		-> 	ebx = 00 00 00 03		 	RAM = 03 00 00 00 6D 6C 6C 6C 6F 00 C3 13 00 FF FE
+mov     eax, L5			-> 	eax = points to 15th byte		RAM = 03 00 00 00 6D 6C 6C 6C 6F 00 C3 13 00 FF FE
+sub     eax, ebx		-> 	eax = points to 12th byte		RAM = 03 00 00 00 6D 6C 6C 6C 6F 00 C3 13 00 FF FE
+mov     word [eax], 01970h	-> 	eax = 70 19 00 00 			RAM = 03 00 00 00 6D 6C 6C 6C 6F 00 C3 70 19 FF FE

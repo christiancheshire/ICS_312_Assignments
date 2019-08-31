@@ -1,0 +1,25 @@
+ICS 312, Spring 2019
+Homework 4, Christian Cheshire
+
+Exercise #1: Overflow [32 pts]
+
+
+2-byte quantities: 9210 + C123 = 5333
+	yes, carry bit is set.
+	yes, overflow bit is set because there's a digit added to the front of the final equation. Also, both values are negative but the answer is positive.
+	It would print: 21299d
+	
+2-byte quantities: 2100 + 7033 = 9133
+	no, carry bit is not set.
+	yes, there is overflow because the result is greater than 2-bytes. Also, both values are positive, but the result is negative.
+	It would print: -28365d
+
+1-byte quantities: B5 + 25 = DA
+	no, the carry bit is not set. 
+	no, there is no overflow because the result is a 1-byte quantity.
+	It would print: -38d
+
+1-byte quantities: E1 + D4 = B5
+	yes, the carry bit is set. 
+	no, the overflow bit is not set because the result has an extra digit beyond one byte. because neg plus neg is bigger neg value
+	It would print: -75d

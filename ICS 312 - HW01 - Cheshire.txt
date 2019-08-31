@@ -1,0 +1,176 @@
+Homework 01, Christian Cheshire
+ICS 312, Spring 2019
+Prof. Henri Casanova
+
+Exercise #1: Conversions [12pts]
+For all the following, perform the conversions showing your work using the systematic methods described in the lecture notes. These questions are about 	“mathematics” and don’t have anything to do with how numbers may be stored in the computer.
+
+1) hex 5A42 into binary
+	
+	54A2 -> 0101 0100 1010 0010 
+	This is evident because "5 4 A 2" is "5 4 10 2" and we simply find which places in the 4-digit byte need 0's or 1's to add up to the appropriate hex number.
+
+2) hex C42 into decimal
+
+	C42 -> 12 4 2
+	This is evident because "C42" is "12 4 2" and we simply multiply -> (12 x 16^2) + (4 x 16^1) + (2 x 16^0) = 3072 + 64 + 2 = 3138
+
+3) binary 1101010100110 into hex
+
+	Dividing the sequence into 4-digit bytes and adding necessary leading zeros, we get: 0001 1010 1010 0110
+	Converting to hex, the first byte is 1, the second byte is 10, the third byte is 10, and the fourth byte is 6
+	Therefore, we get: 1AA6 as the answer.
+
+4) binary 0101011 into decimal
+	
+	Splitting up into two bytes, we get: 0010 1011
+	Multiplying out we get: (0 x 2^6) + (1 x 2^5) + (0 x 2^4) + (1 x 2^3) + (0 x 2^2) + (1 x 2^1) + (1 x 2^0) = 32 + 8 + 2 + 1 = 43
+
+5) decimal 194 into binary
+
+	194/2 = 97 r0
+	97/2  = 48 r1
+	48/2  = 24 r0
+	24/2  = 12 r0
+	12/2  = 6  r0
+	6/2   = 3  r0
+	3/2   = 1  r1
+	1/2   = 0  r1
+
+	Summing the remainder from the least significant to the most significant digits -> 1100 0010
+
+6) decimal 298 into hex
+
+	298/16 = 18 x 16 r10
+	18/16  = 1 x 16  r2
+	1/16   = 0 x 16  r1
+
+	Summing the remainders -> 12A
+
+Exercise #2: Binary and Hex Arithmetic [4pts]
+Give the result for each of the operations below. Show your work (showing carries).
+
+1) binary: 110110 + 10010111
+
+       cc cc 
+	110110
+     +10010111
+     =11001101
+
+2) hex: 6472B01A + E831AC14
+
+         c
+      6472B01A 
+    + E831AC14
+    =14CA45C2E 
+	
+Exercise #3: Two’s Complement [6pts]
+Give the binary 16-bit two’s complement representation of the following decimal integers, and show the details of your work:
+
+1) 153
+
+	153/2 -> 76 r1
+	76/2  -> 38 r0
+	38/2  -> 19 r0
+	19/2  -> 9  r1
+	9/2   -> 4  r1
+	4/2   -> 2  r1
+	2/2   -> 1  r0
+	1/2   -> 0  r1
+
+	Summing the remainders: 1011 1001
+	Flip: 0100 0110
+	Add one: 0100 0111 
+	This is the binary two's complement. Adding leading zeroes, we get: 0000 0000 0100 0111.
+
+2) -2
+
+	2/2 -> 1 r0
+	1/2 -> 0 r1
+
+	Summing the remainders: 0000 0010 
+	Flip: 1111 1101
+	Add one: 1111 1110 (add one, but have to carry to the next digit to the left)
+	This is the binary two's complement. Adding leading zeroes we get: 0000 0000 1111 1110.
+
+3) -94
+
+	94/2 -> 47 r0
+	47/2 -> 23 r1
+	23/2 -> 11 r1
+	11/2 -> 5  r1
+	5/2  -> 2  r1
+	2/2  -> 1  r0
+	1/2  -> 0  r1
+
+	Collecting all the remainders: 0101 1110
+	Flip: 1010 0001
+	Add one: 1010 0010 (add one, but have to carry to the next digit to the left)
+	This is the binary two's complement. Adding leading zeroes, we get: 0000 0000 1010 0001.
+
+Exercise #4: Two’s Complement [6pts]
+Give the hexadecimal 32-bit two’s complement representation of the following decimal integers, and show the details of your work:
+
+1) -7
+
+	7/16 -> 0 x 16 + 7
+
+	Hex is: 7
+	Flip: F-7 = 8
+	Add one: 9
+	This is the hex two's complement. Adding leadeing zeroes, we get: 00000009
+
+2) -71
+
+	71/16 -> 4 x 16 + 7
+	4/16  -> 0 x 16 + 4
+
+	Hex is 47
+	Flip: F-4 = B
+	      F-7 = 8
+	Add one: B9
+	This is the hex two's complement. Adding leading zeroes, we get: 000000B9
+
+3) 522
+
+	522/16 -> 32 x 16 + 10
+	32/16  -> 2 x 16 + 0
+	2/16   -> 0 x 16 + 2
+
+	This gives a hex value of 20A
+
+	Flip: F-2 = D
+	      F-0 = F
+              F-A = 5
+              So, we get DF5
+
+	Add one: DF6
+	Adding leading zeroes, we get: 00000DF6
+
+Exercise #5: Two’s Complement [4pts]
+Give the decimal value of the following 12-bit two’s complement hexadecimal representations, and show the details of your work:
+
+1) C13
+
+	First, flip
+
+	F-C = 3
+	F-1 = 14 = E
+	F-3 = 12 = C
+
+	So, we get: 3EC
+	Add one: 3ED
+
+2) 7F4
+
+	First, flip
+	
+	F-7 = 8
+	F-F = 0
+	F-4 = 11 = B
+
+	So, we get: 80B
+	Add one: 80C
+
+
+
